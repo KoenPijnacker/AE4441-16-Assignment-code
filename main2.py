@@ -6,14 +6,17 @@ from gurobipy import Model, GRB, quicksum
 # P = list of passenger categories, e.g. [1,2,...,NPC]
 
 # Parameters (all dicts keyed by tuples or single keys):
+### Koen :
 # aj[j], dj[j]                   : expected arrival/departure time of flight j
 # na[p,j], nd[p,j], nt[p,j,j2]   : number of arriving/departing/transferring passengers
 # wa[i], wd[i]                   : walking distances for arriving/departing
 # wt[i,i2]                       : walking distance between gate i and i2
+### Mariska :
 # ra[p,i], rd[p,i], rt[p,i]      : revenue per passenger of category p at gate i
 # ca[p], cd[p], ct[p]            : cost per meter for each passenger type p
 # gi[i], gS[i]                   : gate i classifications
 # fj[j], fS[j]                   : flight j classifications
+### Bradut :
 # theta[i], delta[i]             : taxi/prep times for gate i
 # tau_t[i,i2], tau_i[i]          : min transfer and min free-gate times
 # xP[i,j]                        : 1 if gate i already occupied by flight j
