@@ -33,6 +33,16 @@ for i in [6,7,8]:
         for j2 in range(5):
             nt[i,j,j2] = data_for_nt[j_nt][j2]
 
+ra = pd.read_excel('data.xlsx', sheet_name='ra',usecols="B:F").to_numpy()
+rd = pd.read_excel('data.xlsx', sheet_name='rd',usecols="B:F").to_numpy()
+rt = pd.read_excel('data.xlsx', sheet_name='rt',usecols="B:F").to_numpy()
+ca = 0.012
+cd = 0.012
+ct = 0.012
+gi = pd.read_excel('data.xlsx', sheet_name='gi').to_numpy()[0]
+gS = pd.read_excel('data.xlsx', sheet_name='gS').to_numpy()[0]
+fj = pd.read_excel('data.xlsx', sheet_name='fj').to_numpy()[0]
+fS = pd.read_excel('data.xlsx', sheet_name='fS').to_numpy()[0]
 
 ### Mariska :
 # ra[p,i], rd[p,i], rt[p,i]      : revenue per passenger of category p at gate i
