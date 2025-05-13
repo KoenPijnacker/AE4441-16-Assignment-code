@@ -1,9 +1,11 @@
 from gurobipy import Model, GRB, quicksum
+import pandas as pd
+import numpy as np
 
 # --- 1. Load your data into these Python structures ---
-G = [1,2,3,4,5]
-F = [1,2,3,4,5]
-P = [1,2,3,4,5,6,7,8,9]
+G = [0,1,2,3,4]
+F = [0,1,2,3,4]
+P = [0,1,2,3,4,5,6,7,8]
 
 # Parameters (all dicts keyed by tuples or single keys):
 ### Koen :
@@ -11,6 +13,27 @@ P = [1,2,3,4,5,6,7,8,9]
 # na[p,j], nd[p,j], nt[p,j,j2]   : number of arriving/departing/transferring passengers
 # wa[i], wd[i]                   : walking distances for arriving/departing
 # wt[i,i2]                       : walking distance between gate i and i2
+
+
+
+aj = pd.read_excel('data.xlsx', sheet_name='aj').to_numpy()[0]
+dj = pd.read_excel('data.xlsx', sheet_name='dj').to_numpy()[0]
+na = pd.read_excel('data.xlsx', sheet_name='na',usecols="B:F").to_numpy()
+nd = pd.read_excel('data.xlsx', sheet_name='nd',usecols="B:F").to_numpy() 
+data_for_nt = pd.read_excel('data.xlsx', sheet_name='nt', usecols="B:F",).to_numpy()
+wa = pd.read_excel('data.xlsx', sheet_name='wa').to_numpy()[0]
+wd = pd.read_excel('data.xlsx', sheet_name='wd').to_numpy()[0]
+wt = pd.read_excel('data.xlsx', sheet_name='wt',usecols="B:F").to_numpy()
+
+nt = np.zeros((9, 5, 5))
+# for nt, we need to fill the 3D array with the values from the data_for_nt
+for i in [6,7,8]:
+    for j in range(5):
+        j_nt = j +(i-6)*7
+        for j2 in range(5):
+            nt[i,j,j2] = data_for_nt[j_nt][j2]
+
+
 ### Mariska :
 # ra[p,i], rd[p,i], rt[p,i]      : revenue per passenger of category p at gate i
 # ca[p], cd[p], ct[p]            : cost per meter for each passenger type p
@@ -23,6 +46,8 @@ P = [1,2,3,4,5,6,7,8,9]
 # M                              : a big-M constant (e.g. 1e5)
 
 # (You can load these from CSV, a database, etc.)
+
+"""
 
 # --- 2. Build the model ---
 m = Model('GateAssignment_RevenueMax')
@@ -129,3 +154,4 @@ if m.status == GRB.OPTIMAL or m.status == GRB.TIME_LIMIT:
     assign = {(i,j): x[i,j].X for i in G for j in F if x[i,j].X > 0.5}
     print("Flight→Gate assignment:", assign)
     print("Objective value:", m.objVal)
+"""
