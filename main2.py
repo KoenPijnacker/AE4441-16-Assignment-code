@@ -36,9 +36,7 @@ for i in [6,7,8]:
 ra = pd.read_excel('data.xlsx', sheet_name='ra',usecols="B:F").to_numpy()
 rd = pd.read_excel('data.xlsx', sheet_name='rd',usecols="B:F").to_numpy()
 rt = pd.read_excel('data.xlsx', sheet_name='rt',usecols="B:F").to_numpy()
-ca = 0.012
-cd = 0.012
-ct = 0.012
+ca, cd, ct = 0.012, 0.012, 0.012
 gi = pd.read_excel('data.xlsx', sheet_name='gi').to_numpy()[0]
 gS = pd.read_excel('data.xlsx', sheet_name='gS').to_numpy()[0]
 fj = pd.read_excel('data.xlsx', sheet_name='fj').to_numpy()[0]
