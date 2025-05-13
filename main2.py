@@ -1,9 +1,9 @@
 from gurobipy import Model, GRB, quicksum
 
 # --- 1. Load your data into these Python structures ---
-# G = list of gate IDs, e.g. [1,2,...,NG]
-# F = list of flight IDs, e.g. [1,2,...,NF]
-# P = list of passenger categories, e.g. [1,2,...,NPC]
+G = [1,2,3,4,5]
+F = [1,2,3,4,5]
+P = [1,2,3,4,5,6,7,8,9]
 
 # Parameters (all dicts keyed by tuples or single keys):
 ### Koen :
