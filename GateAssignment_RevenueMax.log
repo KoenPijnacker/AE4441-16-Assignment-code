@@ -1,0 +1,84 @@
+
+Gurobi 12.0.0 (win64) logging started Wed May 14 10:01:46 2025
+
+Set parameter LogFile to value "GateAssignment_RevenueMax.log"
+Set parameter TimeLimit to value 600
+Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (win64 - Windows 11.0 (26100.2))
+
+CPU model: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, instruction set [SSE2|AVX|AVX2]
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+
+Non-default parameters:
+TimeLimit  600
+
+Optimize a model with 2653 rows, 685 columns and 6143 nonzeros
+Model fingerprint: 0xe64c229d
+Variable types: 10 continuous, 675 integer (675 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+06]
+  Objective range  [8e+00, 3e+03]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+06]
+Presolve removed 2575 rows and 640 columns
+Presolve time: 0.01s
+Presolved: 78 rows, 45 columns, 162 nonzeros
+Variable types: 0 continuous, 45 integer (45 binary)
+Found heuristic solution: objective 1829.4000000
+
+Root relaxation: objective 2.825400e+03, 45 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 2825.40000    0   45 1829.40000 2825.40000  54.4%     -    0s
+     0     0     cutoff    0      1829.40000 1829.40000  0.00%     -    0s
+
+Explored 1 nodes (70 simplex iterations) in 0.04 seconds (0.01 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 1829.4 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.829400000000e+03, best bound 1.829400000000e+03, gap 0.0000%
+
+Gurobi 12.0.0 (win64) logging started Wed May 14 10:21:32 2025
+
+Set parameter LogFile to value "GateAssignment_RevenueMax.log"
+Set parameter TimeLimit to value 600
+Gurobi Optimizer version 12.0.0 build v12.0.0rc1 (win64 - Windows 11.0 (26100.2))
+
+CPU model: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz, instruction set [SSE2|AVX|AVX2]
+Thread count: 6 physical cores, 12 logical processors, using up to 12 threads
+
+Non-default parameters:
+TimeLimit  600
+
+Optimize a model with 2653 rows, 685 columns and 6143 nonzeros
+Model fingerprint: 0xe64c229d
+Variable types: 10 continuous, 675 integer (675 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+06]
+  Objective range  [8e+00, 3e+03]
+  Bounds range     [1e+00, 1e+00]
+  RHS range        [1e+00, 2e+06]
+Presolve removed 2575 rows and 640 columns
+Presolve time: 0.00s
+Presolved: 78 rows, 45 columns, 162 nonzeros
+Variable types: 0 continuous, 45 integer (45 binary)
+Found heuristic solution: objective 1829.4000000
+
+Root relaxation: objective 2.825400e+03, 45 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 2825.40000    0   45 1829.40000 2825.40000  54.4%     -    0s
+     0     0     cutoff    0      1829.40000 1829.40000  0.00%     -    0s
+
+Explored 1 nodes (70 simplex iterations) in 0.03 seconds (0.01 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 1829.4 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.829400000000e+03, best bound 1.829400000000e+03, gap 0.0000%
