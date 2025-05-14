@@ -42,20 +42,17 @@ gS = pd.read_excel('data.xlsx', sheet_name='gS').to_numpy()[0]
 fj = pd.read_excel('data.xlsx', sheet_name='fj').to_numpy()[0]
 fS = pd.read_excel('data.xlsx', sheet_name='fS').to_numpy()[0]
 
-### Mariska :
-# ra[p,i], rd[p,i], rt[p,i]      : revenue per passenger of category p at gate i
-# ca[p], cd[p], ct[p]            : cost per meter for each passenger type p
-# gi[i], gS[i]                   : gate i classifications
-# fj[j], fS[j]                   : flight j classifications
+theta = pd.read_excel('data.xlsx', sheet_name='thetai').to_numpy()[0]
+delta = pd.read_excel('data.xlsx', sheet_name='deltai').to_numpy()[0]
+tau_t = np.zeros((len(G),len(G)),dtype = int) # i have no idea min transfer time not mentioned in paper
+tau_i = 5
+xp = np.ones((len(G),len(F)), dtype=int)
+M = 1e6 #Big M constant
+
 ### Bradut :
-# theta[i], delta[i]             : taxi/prep times for gate i
 # tau_t[i,i2], tau_i[i]          : min transfer and min free-gate times
-# xP[i,j]                        : 1 if gate i already occupied by flight j
-# M                              : a big-M constant (e.g. 1e5)
 
 # (You can load these from CSV, a database, etc.)
-
-"""
 
 # --- 2. Build the model ---
 m = Model('GateAssignment_RevenueMax')
@@ -86,14 +83,14 @@ O2 = quicksum(na[p,j]*ra[p,i]*x[i,j] for p in P for i in G for j in F)
 O3 = quicksum(nd[p,j]*rd[p,i]*x[i,j] for p in P for i in G for j in F)
 
 # O4: transfer walking-cost
-O4 = quicksum(nt[p,j,j2]*ct[p]*wt[i,i2]*z[i,i2,j,j2]
+O4 = quicksum(nt[p,j,j2]*ct*wt[i,i2]*z[i,i2,j,j2]
               for p in P for i in G for i2 in G for j in F for j2 in F)
 
 # O5: arriving walking-cost
-O5 = quicksum(na[p,j]*ca[p]*wa[i]*x[i,j] for p in P for i in G for j in F)
+O5 = quicksum(na[p,j]*ca*wa[i]*x[i,j] for p in P for i in G for j in F)
 
 # O6: departing walking-cost
-O6 = quicksum(nd[p,j]*cd[p]*wd[i]*x[i,j] for p in P for i in G for j in F)
+O6 = quicksum(nd[p,j]*cd*wd[i]*x[i,j] for p in P for i in G for j in F)
 
 m.setObjective(O1 + O2 + O3 - O4 - O5 - O6, GRB.MAXIMIZE)
 
@@ -138,19 +135,25 @@ m.addConstrs((x[i,j] == 0
              name='schengen_compat')
 
 # 4.7 Transfer time feasibility
-m.addConstrs((c[j2] - b[j] >= tau_t[i,i2]*z[i,i2,j,j2]
-               for i in G for i2 in G for j in F for j2 in F
-               if nt[p,j,j2] > 0), name='transfer_time')
+#valid pairs to be determined first
+valid_pairs = [(i, i2, j, j2) for i in G for i2 in G for j in F for j2 in F
+               if np.sum(nt[1:9, j, j2]) > 0]
+
+m.addConstrs(
+    (c[j2] - b[j] >= tau_t[i, i2] * z[i, i2, j, j2]
+     for i, i2, j, j2 in valid_pairs),
+    name='transfer_time'
+)
 
 # 4.8 Minimum free-gate time
 m.addConstrs((
-    b[j2] - delta[i] - tau_i[i] - c[j] - delta[i] >=
+    b[j2] - delta[i] - tau_i - c[j] - delta[i] >=
       -M*(2 - x[i,j] - x[i,j2])
     for i in G for j in F for j2 in F if j!=j2 and aj[j] <= aj[j2]),
     name='free_gate')
 
 # 4.9 Pre-assigned gates locked out
-m.addConstrs((x[i,j] <= xP[i,j] for i in G for j in F),
+m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
 
 # --- 5. Optimize ---
@@ -162,4 +165,3 @@ if m.status == GRB.OPTIMAL or m.status == GRB.TIME_LIMIT:
     assign = {(i,j): x[i,j].X for i in G for j in F if x[i,j].X > 0.5}
     print("Flight→Gate assignment:", assign)
     print("Objective value:", m.objVal)
-"""
