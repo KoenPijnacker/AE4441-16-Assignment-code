@@ -16,34 +16,35 @@ P = [0,1,2,3,4,5,6,7,8]
 
 
 
-aj = pd.read_excel('data.xlsx', sheet_name='aj').to_numpy()[0]
-dj = pd.read_excel('data.xlsx', sheet_name='dj').to_numpy()[0]
-na = pd.read_excel('data.xlsx', sheet_name='na',usecols="B:F").to_numpy()
-nd = pd.read_excel('data.xlsx', sheet_name='nd',usecols="B:F").to_numpy() 
-data_for_nt = pd.read_excel('data.xlsx', sheet_name='nt', usecols="B:F",).to_numpy()
-wa = pd.read_excel('data.xlsx', sheet_name='wa').to_numpy()[0]
-wd = pd.read_excel('data.xlsx', sheet_name='wd').to_numpy()[0]
-wt = pd.read_excel('data.xlsx', sheet_name='wt',usecols="B:F").to_numpy()
+aj = pd.read_excel('Full_data.xlsx', sheet_name='aj').to_numpy()[0]
+dj = pd.read_excel('Full_data.xlsx', sheet_name='dj').to_numpy()[0]
+na = pd.read_excel('Full_data.xlsx', sheet_name='na',usecols="B:F").to_numpy()
+nd = pd.read_excel('Full_data.xlsx', sheet_name='nd',usecols="B:F").to_numpy() 
+data_for_nt = pd.read_excel('Full_data.xlsx', sheet_name='nt', usecols="B:F",).to_numpy()
+wa = pd.read_excel('Full_data.xlsx', sheet_name='wa').to_numpy()[0]
+wd = pd.read_excel('Full_data.xlsx', sheet_name='wd').to_numpy()[0]
+wt = pd.read_excel('Full_data.xlsx', sheet_name='wt',usecols="B:F").to_numpy()
 
-nt = np.zeros((9, 5, 5))
+
+nt = np.zeros((9, len(F), len(F)))
 # for nt, we need to fill the 3D array with the values from the data_for_nt
 for i in [6,7,8]:
-    for j in range(5):
-        j_nt = j +(i-6)*7
-        for j2 in range(5):
+    for j in range(len(F)):
+        j_nt = j +(i-6)*(2+len(F))
+        for j2 in range(len(F)):
             nt[i,j,j2] = data_for_nt[j_nt][j2]
 
-ra = pd.read_excel('data.xlsx', sheet_name='ra',usecols="B:F").to_numpy()
-rd = pd.read_excel('data.xlsx', sheet_name='rd',usecols="B:F").to_numpy()
-rt = pd.read_excel('data.xlsx', sheet_name='rt',usecols="B:F").to_numpy()
+ra = pd.read_excel('Full_data.xlsx', sheet_name='ra',usecols="B:F").to_numpy()
+rd = pd.read_excel('Full_data.xlsx', sheet_name='rd',usecols="B:F").to_numpy()
+rt = pd.read_excel('Full_data.xlsx', sheet_name='rt',usecols="B:F").to_numpy()
 ca, cd, ct = 0.012, 0.012, 0.012
-gi = pd.read_excel('data.xlsx', sheet_name='gi').to_numpy()[0]
-gS = pd.read_excel('data.xlsx', sheet_name='gS').to_numpy()[0]
-fj = pd.read_excel('data.xlsx', sheet_name='fj').to_numpy()[0]
-fS = pd.read_excel('data.xlsx', sheet_name='fS').to_numpy()[0]
+gi = pd.read_excel('Full_data.xlsx', sheet_name='gi').to_numpy()[0]
+gS = pd.read_excel('Full_data.xlsx', sheet_name='gS').to_numpy()[0]
+fj = pd.read_excel('Full_data.xlsx', sheet_name='fj').to_numpy()[0]
+fS = pd.read_excel('Full_data.xlsx', sheet_name='fS').to_numpy()[0]
 
-theta = pd.read_excel('data.xlsx', sheet_name='thetai').to_numpy()[0]
-delta = pd.read_excel('data.xlsx', sheet_name='deltai').to_numpy()[0]
+theta = pd.read_excel('Full_data.xlsx', sheet_name='thetai').to_numpy()[0]
+delta = pd.read_excel('Full_data.xlsx', sheet_name='deltai').to_numpy()[0]
 tau_t = np.zeros((len(G),len(G)),dtype = int) # i have no idea min transfer time not mentioned in paper
 tau_i = 5
 xp = np.ones((len(G),len(F)), dtype=int)
@@ -157,6 +158,7 @@ m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
 
 # --- 5. Optimize ---
+m.params.LogFile='GateAssignment_RevenueMax.log'
 m.Params.TimeLimit = 600     # e.g. 10-minute time limit
 m.optimize()
 
