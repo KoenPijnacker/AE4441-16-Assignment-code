@@ -44,7 +44,7 @@ fS = pd.read_excel('data.xlsx', sheet_name='fS').to_numpy()[0]
 
 theta = pd.read_excel('data.xlsx', sheet_name='thetai').to_numpy()[0]
 delta = pd.read_excel('data.xlsx', sheet_name='deltai').to_numpy()[0]
-tau_t = np.zeros((len(G),len(G)),dtype = int) # i have no idea min transfer time not mentioned in paper
+tau_t = wt / 60
 tau_i = 5
 xp = np.ones((len(G),len(F)), dtype=int)
 M = 1e6 #Big M constant
@@ -155,6 +155,17 @@ m.addConstrs((
 # 4.9 Pre-assigned gates locked out
 m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
+# #Check function
+# manual_assign = {0: 4, 1: 0, 2: 2, 3: 3, 4: 1}  # flight j → gate i
+#
+# for i, j in manual_assign.items():
+#     m.addConstr(x[i,j] == 1)
+#
+# # And force all other x[i,j] to 0:
+# for i in G:
+#     for j in F:
+#         if manual_assign.get(i) != j:
+#             m.addConstr(x[i,j] == 0)
 
 # --- 5. Optimize ---
 m.Params.TimeLimit = 600     # e.g. 10-minute time limit
@@ -189,7 +200,7 @@ if m.status == GRB.OPTIMAL or m.status == GRB.TIME_LIMIT:
     print(f"O6 (Departure Walking Cost):  -{O6_val:.2f}")
     print(f"Total Objective:               {(O1_val + O2_val + O3_val - O4_val - O5_val - O6_val):.2f}")
     assign = {(i,j): x[i,j].X for i in G for j in F if x[i,j].X > 0.5}
-    print("Flight→Gate assignment:", assign)
+    print("Gate→Flight assignment:", assign)
     print("Objective value:", m.objVal)
 else:
     print("Optimization was not successful.")
