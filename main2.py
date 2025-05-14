@@ -157,6 +157,7 @@ m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
 
 # --- 5. Optimize ---
+m.params.LogFile='GateAssignment_RevenueMax.log'
 m.Params.TimeLimit = 600     # e.g. 10-minute time limit
 m.optimize()
 
