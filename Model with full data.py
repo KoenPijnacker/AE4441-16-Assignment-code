@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 
 # --- 1. Load your data into these Python structures ---
-G = [0,1,2,3,4]
-F = [0,1,2,3,4]
+G = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
+F = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21]
 P = [0,1,2,3,4,5,6,7,8]
 
 # Parameters (all dicts keyed by tuples or single keys):
@@ -18,12 +18,12 @@ P = [0,1,2,3,4,5,6,7,8]
 
 aj = pd.read_excel('Full_data.xlsx', sheet_name='aj').to_numpy()[0]
 dj = pd.read_excel('Full_data.xlsx', sheet_name='dj').to_numpy()[0]
-na = pd.read_excel('Full_data.xlsx', sheet_name='na',usecols="B:F").to_numpy()
-nd = pd.read_excel('Full_data.xlsx', sheet_name='nd',usecols="B:F").to_numpy() 
-data_for_nt = pd.read_excel('Full_data.xlsx', sheet_name='nt', usecols="B:F",).to_numpy()
+na = pd.read_excel('Full_data.xlsx', sheet_name='na',usecols="B:W").to_numpy()
+nd = pd.read_excel('Full_data.xlsx', sheet_name='nd',usecols="B:W").to_numpy() 
+data_for_nt = pd.read_excel('Full_data.xlsx', sheet_name='nt', usecols="B:W",).to_numpy()
 wa = pd.read_excel('Full_data.xlsx', sheet_name='wa').to_numpy()[0]
 wd = pd.read_excel('Full_data.xlsx', sheet_name='wd').to_numpy()[0]
-wt = pd.read_excel('Full_data.xlsx', sheet_name='wt',usecols="B:F").to_numpy()
+wt = pd.read_excel('Full_data.xlsx', sheet_name='wt',usecols="B:AH").to_numpy()
 
 
 nt = np.zeros((9, len(F), len(F)))
@@ -34,9 +34,9 @@ for i in [6,7,8]:
         for j2 in range(len(F)):
             nt[i,j,j2] = data_for_nt[j_nt][j2]
 
-ra = pd.read_excel('Full_data.xlsx', sheet_name='ra',usecols="B:F").to_numpy()
-rd = pd.read_excel('Full_data.xlsx', sheet_name='rd',usecols="B:F").to_numpy()
-rt = pd.read_excel('Full_data.xlsx', sheet_name='rt',usecols="B:F").to_numpy()
+ra = pd.read_excel('Full_data.xlsx', sheet_name='ra',usecols="B:AH").to_numpy()
+rd = pd.read_excel('Full_data.xlsx', sheet_name='rd',usecols="B:AH").to_numpy()
+rt = pd.read_excel('Full_data.xlsx', sheet_name='rt',usecols="B:AH").to_numpy()
 ca, cd, ct = 0.012, 0.012, 0.012
 gi = pd.read_excel('Full_data.xlsx', sheet_name='gi').to_numpy()[0]
 gS = pd.read_excel('Full_data.xlsx', sheet_name='gS').to_numpy()[0]
@@ -54,6 +54,7 @@ M = 1e6 #Big M constant
 # tau_t[i,i2], tau_i[i]          : min transfer and min free-gate times
 
 # (You can load these from CSV, a database, etc.)
+
 
 # --- 2. Build the model ---
 m = Model('GateAssignment_RevenueMax')
