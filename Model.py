@@ -46,7 +46,8 @@ theta = pd.read_excel('data.xlsx', sheet_name='thetai').to_numpy()[0]
 delta = pd.read_excel('data.xlsx', sheet_name='deltai').to_numpy()[0]
 tau_t = wt / 60
 tau_i = 5
-xp = np.ones((len(G),len(F)), dtype=int)
+xp = np.zeros((len(G),len(F)), dtype=int)
+print(xp)
 M = 1e6 #Big M constant
 
 ### Bradut :
@@ -153,7 +154,7 @@ m.addConstrs((
     name='free_gate')
 
 # 4.9 Pre-assigned gates locked out
-m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
+m.addConstrs((x[i,j] >= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
 # #Check function
 # manual_assign = {0: 4, 1: 0, 2: 2, 3: 3, 4: 1}  # flight j → gate i

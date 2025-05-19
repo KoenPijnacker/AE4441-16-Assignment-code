@@ -45,9 +45,24 @@ fS = pd.read_excel('Full_data.xlsx', sheet_name='fS').to_numpy()[0]
 
 theta = pd.read_excel('Full_data.xlsx', sheet_name='thetai').to_numpy()[0]
 delta = pd.read_excel('Full_data.xlsx', sheet_name='deltai').to_numpy()[0]
-tau_t = np.zeros((len(G),len(G)),dtype = int) # i have no idea min transfer time not mentioned in paper
+tau_t = pd.read_excel('Full_data.xlsx', sheet_name='taut',usecols="B:AH").to_numpy()
 tau_i = 5
-xp = np.ones((len(G),len(F)), dtype=int)
+xp = np.zeros((len(G),len(F)), dtype=int)
+xp[6,1] = 1
+xp[8,2] = 1
+xp[1,3] = 1
+xp[9,4] = 1
+xp[2,5] = 1
+xp[15,6] = 1
+xp[7,7] = 1
+xp[5,8] = 1
+xp[4,9] = 1	
+xp[3,10] = 1
+xp[12,11] = 1
+xp[10,12] = 1
+xp[13,13] = 1
+xp[11,14] = 1
+xp[14,15] = 1
 M = 1e6 #Big M constant
 
 ### Bradut :
@@ -155,7 +170,7 @@ m.addConstrs((
     name='free_gate')
 
 # 4.9 Pre-assigned gates locked out
-m.addConstrs((x[i,j] <= xp[i,j] for i in G for j in F),
+m.addConstrs((x[i,j] >= xp[i,j] for i in G for j in F),
              name='preassigned_lock')
 
 # --- 5. Optimize ---
