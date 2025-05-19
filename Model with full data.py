@@ -49,13 +49,13 @@ tau_t = pd.read_excel('Full_data.xlsx', sheet_name='taut',usecols="B:AH").to_num
 tau_i = 5
 xp = np.zeros((len(G),len(F)), dtype=int)
 xp[6,1] = 1
-xp[8,2] = 1
-xp[1,3] = 1
-xp[9,4] = 1
-xp[2,5] = 1
-xp[15,6] = 1
-xp[7,7] = 1
-xp[5,8] = 1
+# xp[8,2] = 1
+# xp[1,3] = 1
+# xp[9,4] = 1
+# xp[2,5] = 1
+# xp[15,6] = 1
+# xp[7,7] = 1
+# xp[5,8] = 1
 # xp[4,9] = 1	
 # xp[3,10] = 1
 # xp[12,11] = 1
@@ -63,9 +63,9 @@ xp[5,8] = 1
 # xp[13,13] = 1
 # xp[11,14] = 1
 # xp[14,15] = 1
-# # xp[26,16] = 1
-# # xp[6,17] = 1
-# # xp[17,18] = 1
+# xp[26,16] = 1
+xp[6,17] = 1
+# xp[17,18] = 1
 M = 1e6 #Big M constant
 
 ### Bradut :
