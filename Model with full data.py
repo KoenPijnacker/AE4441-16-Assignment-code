@@ -48,24 +48,24 @@ delta = pd.read_excel('Full_data.xlsx', sheet_name='deltai').to_numpy()[0]
 tau_t = pd.read_excel('Full_data.xlsx', sheet_name='taut',usecols="B:AH").to_numpy()
 tau_i = 5
 xp = np.zeros((len(G),len(F)), dtype=int)
-xp[6,1] = 1
-# xp[8,2] = 1
-# xp[1,3] = 1
-# xp[9,4] = 1
-# xp[2,5] = 1
-# xp[15,6] = 1
-# xp[7,7] = 1
-# xp[5,8] = 1
-# xp[4,9] = 1	
-# xp[3,10] = 1
-# xp[12,11] = 1
-# xp[10,12] = 1
-# xp[13,13] = 1
-# xp[11,14] = 1
-# xp[14,15] = 1
-# xp[26,16] = 1
-xp[6,17] = 1
-# xp[17,18] = 1
+xp[5,0] = 1
+xp[7,1] = 1
+xp[0,2] = 1
+xp[8,3] = 1
+xp[1,4] = 1
+xp[14,5] = 1
+xp[6,6] = 1
+xp[4,7] = 1
+xp[3,8] = 1	
+xp[2,9] = 1
+xp[11,10] = 1
+xp[9,11] = 1
+xp[12,12] = 1
+xp[10,13] = 1
+xp[13,14] = 1
+# xp[25,15] = 1
+# xp[5,16] = 1
+# xp[16,17] = 1
 M = 1e6 #Big M constant
 
 ### Bradut :
