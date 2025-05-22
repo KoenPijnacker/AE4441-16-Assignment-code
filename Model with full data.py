@@ -25,7 +25,6 @@ wa = pd.read_excel('Full_data.xlsx', sheet_name='wa').to_numpy()[0]
 wd = pd.read_excel('Full_data.xlsx', sheet_name='wd').to_numpy()[0]
 wt = pd.read_excel('Full_data.xlsx', sheet_name='wt',usecols="B:AH").to_numpy()
 
-
 nt = np.zeros((9, len(F), len(F)))
 # for nt, we need to fill the 3D array with the values from the data_for_nt
 for i in [6,7,8]:
